@@ -1,11 +1,8 @@
 class Dish
 
-NO_NAME = "No name given"
-NO_PRICE = 0.00
-
-def initialize(values={})
-	@name = values.fetch(:name, NO_NAME)
-	@price = values.fetch(:price, NO_PRICE)
+def initialize(name="", price= 0.00)
+	@name = name.capitalize
+	@price = price.round(2)
 end
 
 attr_reader :name, :price
