@@ -6,7 +6,7 @@ class Menu
 	attr_accessor :dishes
 
 	def to_s
-		header ++ "\n" + list_dishes + "\n" + footer
+		header + "\n" + list_dishes + "\n" + footer
 	end
 
 	def add_dish(dish)

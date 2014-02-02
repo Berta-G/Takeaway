@@ -1,18 +1,14 @@
 class Order
 
-	def initialize(phone_number= nil)
+	def initialize(phone_number= ENV["PHONE_NUMBER"])
 		@lines = []
 		@phone_number = phone_number
 	end
 
-	attr_accessor :phone_number, :lines
+	attr_reader :phone_number, :lines
 
 	def add_line(line)
 		lines << line
-	end
-
-	def delete_line(line)
-		lines.delete(line)
 	end
 
 	def total_lines
@@ -21,11 +17,6 @@ class Order
 
 	def total_price
 		lines.inject(0) {|total, line| total + line.price * line.quantity}
-	end
-
-	def send(takeaway)
-		raise "Empty order, cannot be sent" if total_lines == nil
-		takeaway.confirm_order(self)
 	end
 
 end
