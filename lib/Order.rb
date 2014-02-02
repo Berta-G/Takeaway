@@ -19,10 +19,13 @@ class Order
 		lines.count
 	end
 
+	def total_price
+		lines.inject(0) {|total, line| total + line.price * line.quantity}
+	end
+
 	def send(takeaway)
 		raise "Empty order, cannot be sent" if total_lines == nil
 		takeaway.confirm_order(self)
 	end
-
 
 end

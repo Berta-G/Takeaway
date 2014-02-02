@@ -17,22 +17,35 @@ describe "Order" do
 	context "Functionalities" do
 		let(:order) {Order.new}
 		let(:takeaway) {double :takeaway}
-		let(:line) {double :line}
+		let(:line1) {double :line, :price => 3.00, :quantity => 1}
+		let(:line2) {double :line, :price => 2.00, :quantity => 3}
+		let(:line3) {double :line, :price => 5.50, :quantity => 2}
 
 		def insert_three_lines
-			3.times {order.add_line(line)}
+			order.add_line(line1)
+			order.add_line(line2)
+			order.add_line(line3)
+		end
+
+		it "knows how many lines the order has" do
+			insert_three_lines
+			expect(order.total_lines).to eq(3)
+		end
+
+		it "know the total price of the order" do
+			insert_three_lines
+			expect(order.total_price).to eq(20.00)
 		end
 
 		it "can add a line" do
 			insert_three_lines
-			order.add_line(line)
-			expect(order.total_lines).to eq(4)
+			expect(order.lines).to eq([line1, line2, line3])
 		end
 
 		it "can delete a line" do
 			insert_three_lines
-			order.delete_line(line)
-			expect(order.total_lines).to eq(0)
+			order.delete_line(line2)
+			expect(order.lines).to eq([line1, line3])
 		end
 
 		it "can be sent to a takeaway" do
