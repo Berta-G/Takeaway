@@ -11,7 +11,7 @@ class Order
 		lines << line
 	end
 
-	def remove_line(line)
+	def delete_line(line)
 		lines.delete(line)
 	end
 
@@ -20,6 +20,7 @@ class Order
 	end
 
 	def send(takeaway)
+		raise "Empty order, cannot be sent" if total_lines == nil
 		takeaway.confirm_order(self)
 	end
 

@@ -16,16 +16,33 @@ describe "Order" do
 	end
 	context "Functionalities" do
 		let(:order) {Order.new}
+		let(:takeaway) {double :takeaway}
+		let(:line) {double :line}
+
+		def insert_three_lines
+			3.times {order.add_line(line)}
+		end
 
 		it "can add a line" do
-			line = double :line
+			insert_three_lines
 			order.add_line(line)
-			expect(order.total_lines).to eq(1)
+			expect(order.total_lines).to eq(4)
 		end
+
+		it "can delete a line" do
+			insert_three_lines
+			order.delete_line(line)
+			expect(order.total_lines).to eq(0)
+		end
+
 		it "can be sent to a takeaway" do
-			takeaway = double :takeaway	
 			expect(takeaway).to receive(:confirm_order)
 			order.send(takeaway)
 		end
+
+		it "raises an error if an empty order tries to be sent" do
+			expect{order.send(takeaway)}.to raise_error
+		end
+			
 	end
 end
