@@ -1,4 +1,5 @@
 Classes to manage a takeaway order.
+=====================================
 
 it has these functionalities:
 - list of the dishes
